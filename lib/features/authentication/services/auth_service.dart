@@ -18,5 +18,24 @@ class AuthService {
   } on UnoError catch (erro) {
     throw Exception("Erro ao criar conta $erro");
   }
-  }
+}
+
+  Future<String> login ({
+      required String email, 
+      required String password,
+    }) async {
+      try {
+        final response = await _uno.post("${Constants.baseApiUrl}/api/login",
+        data: {
+          "email" : email,
+          "password" : password,
+        },
+      );
+
+      return response.data as String; 
+    } on UnoError catch (error) {
+      throw Exception("Erro ao fazer login: $error");
+      }
+    }
+  
 }
